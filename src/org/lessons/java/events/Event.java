@@ -57,7 +57,7 @@ public class Event {
             throw new IllegalArgumentException("The event has already passed! You cannot reserve seats");
         }
 
-        if (totalSeats >= reservedSeats) {
+        if (reservedSeats >= totalSeats) {
             throw new IllegalArgumentException("Sold out!");
         }
 

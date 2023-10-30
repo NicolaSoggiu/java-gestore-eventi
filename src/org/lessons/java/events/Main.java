@@ -17,10 +17,22 @@ public class Main {
         System.out.print("Insert the total of the seats: ");
         int totalEventSeats = scan.nextInt();
 
-        System.out.print("Insert the reserved seats : ");
-        int reservedEventSeats = scan.nextInt();
-
         Event prova = new Event(eventName, eventDate, totalEventSeats);
+
+        System.out.println("How many seats do you want to book?");
+        int reservedEventSeats = scan.nextInt();
+        prova.bookSeats(reservedEventSeats);
+
+        System.out.println("Do you want to cancel a reservation? y/n : ");
+        String cancelReservation = scan.next();
+        if (cancelReservation.equals("y")) {
+            System.out.print("how many places do you want to delete?");
+            int cancelledSeats = scan.nextInt();
+            prova.cancelSeats(cancelledSeats);
+            System.out.println("Reserved places: " + prova.getReservedSeats());
+            System.out.println("Available places: " + prova.getTotalSeats());
+        }
+
         System.out.println(prova);
 
         scan.close();
