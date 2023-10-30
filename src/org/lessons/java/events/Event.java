@@ -91,6 +91,6 @@ public class Event {
     // TOSTRING
     @Override
     public String toString() {
-        return "Date: " + getDataFormattata() + "-" + "Title: " + title;
+        return "Date: " + getDataFormattata() + " - " + "Title: " + title;
     }
 }

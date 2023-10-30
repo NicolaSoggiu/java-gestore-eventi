@@ -14,13 +14,14 @@ public class Main {
         String eventDateString = scan.nextLine();
         LocalDate eventDate = LocalDate.parse(eventDateString);
 
-        System.out.print("Insert event title: ");
+        System.out.print("Insert the total of the seats: ");
         int totalEventSeats = scan.nextInt();
 
-        System.out.print("Insert event title: ");
+        System.out.print("Insert the reserved seats : ");
         int reservedEventSeats = scan.nextInt();
 
-        Event prova = new Event(eventName, eventDate, totalEventSeats, reservedEventSeats);
+        Event prova = new Event(eventName, eventDate, totalEventSeats);
+        System.out.println(prova);
 
         scan.close();
     }
