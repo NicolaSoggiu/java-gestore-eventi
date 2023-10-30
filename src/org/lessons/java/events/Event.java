@@ -16,6 +16,8 @@ public class Event {
         if (date.isBefore(LocalDate.now())) {
             throw new IllegalArgumentException("The event date cannot have passed!");
         }
+
+        this.title = title;
         this.date = date;
         this.totalSeats = totalSeats;
         reservedSeats = 0;
