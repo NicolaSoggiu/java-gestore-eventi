@@ -54,29 +54,27 @@ public class Event {
     // METODO PER PRENOTARE I POSTI
     public void bookSeats(int seats) throws IllegalArgumentException {
         if (date.isBefore(LocalDate.now())) {
-            throw new IllegalArgumentException("The event has already passed! You cannot reserve seats");
+            throw new IllegalArgumentException("The event has already passed! You cannot reserve seats.");
         }
 
-        if (reservedSeats >= totalSeats) {
+        if (reservedSeats + seats > totalSeats) {
             throw new IllegalArgumentException("Sold out!");
         }
 
         reservedSeats += seats;
-        totalSeats -= reservedSeats;
     }
 
     // METODO PER CANCELLARE UNA PRENOTAZIONE
     public void cancelSeats(int seats) throws IllegalArgumentException {
         if (date.isBefore(LocalDate.now())) {
-            throw new IllegalArgumentException("The event has already passed! You cannot reserve seats");
+            throw new IllegalArgumentException("The event has already passed! You cannot cancel seats.");
         }
 
-    if (reservedSeats <= 0) {
-        throw new IllegalArgumentException("There are no reserved seats!");
-    }
+        if (reservedSeats < seats) {
+            throw new IllegalArgumentException("There are no reserved seats to cancel!");
+        }
 
         reservedSeats -= seats;
-        totalSeats += seats;
     }
 
     // METODO PER FORMATTARE LA DATA
