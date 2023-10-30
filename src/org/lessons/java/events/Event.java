@@ -80,17 +80,17 @@ public class Event {
     }
 
     // METODO PER FORMATTARE LA DATA
-    public String formatData() {
+    public String formatDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return date.format(formatter);
     }
-    public String getDataFormattata() {
-        return formatData();
+    public String getFormatDate() {
+        return formatDate();
     }
 
     // TOSTRING
     @Override
     public String toString() {
-        return "Date: " + getDataFormattata() + " - " + "Title: " + title;
+        return "Date: " + getFormatDate() + " - " + "Title: " + title;
     }
 }
