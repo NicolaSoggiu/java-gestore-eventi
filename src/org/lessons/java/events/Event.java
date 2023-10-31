@@ -2,6 +2,7 @@ package org.lessons.java.events;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class Event {
     // ATTRIBUTI
@@ -12,13 +13,8 @@ public class Event {
 
     // COSTRUTTORE
     public Event(String title, LocalDate date, int totalSeats) throws IllegalArgumentException {
-        if (totalSeats <= 0) {
-            throw new IllegalArgumentException("Something went wrong with the seats!");
-        }
-
-        if (date.isBefore(LocalDate.now())) {
-            throw new IllegalArgumentException("The event date cannot have passed!");
-        }
+        validateTotalSeats(totalSeats);
+        validateDate(date);
 
         this.title = title;
         this.date = date;
@@ -51,30 +47,44 @@ public class Event {
         return reservedSeats;
     }
 
+    // METODO PER VALIDARE LA DATA
+    private static void validateDate(LocalDate date) {
+        if (date.isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("The event date cannot have passed!");
+        }
+    }
+
+    // METODO PER VALIDARE IL TOTALE DEI POSTI
+    private static void validateTotalSeats(int totalSeats) {
+        if (totalSeats <= 0) {
+            throw new IllegalArgumentException("Something went wrong with the seats!");
+        }
+    }
+
     // METODO PER PRENOTARE I POSTI
     public void bookSeats(int seats) throws IllegalArgumentException {
-        if (date.isBefore(LocalDate.now())) {
-            throw new IllegalArgumentException("The event has already passed! You cannot reserve seats.");
-        }
-
+        validateEventDate();
         if (reservedSeats + seats > totalSeats) {
             throw new IllegalArgumentException("Sold out!");
         }
-
         reservedSeats += seats;
     }
 
+
     // METODO PER CANCELLARE UNA PRENOTAZIONE
     public void cancelSeats(int seats) throws IllegalArgumentException {
-        if (date.isBefore(LocalDate.now())) {
-            throw new IllegalArgumentException("The event has already passed! You cannot cancel seats.");
-        }
-
+        validateEventDate();
         if (reservedSeats < seats) {
             throw new IllegalArgumentException("There are no reserved seats to cancel!");
         }
-
         reservedSeats -= seats;
+    }
+
+    // METODO PER VALIDARE LA DATA DELL'EVENTO
+    private void validateEventDate() {
+        if (date.isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("The event has already passed! You cannot reserve seats.");
+        }
     }
 
     // METODO PER FORMATTARE LA DATA
@@ -84,6 +94,20 @@ public class Event {
     }
     public String getFormatDate() {
         return formatDate();
+    }
+
+    // METODO EQUALS CHE SERVE PER PARAGONARE L'EVENTO CON LA CLASSE PROGRAMEVENT
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return Objects.equals(title, event.title) && Objects.equals(date, event.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, date);
     }
 
     // TOSTRING

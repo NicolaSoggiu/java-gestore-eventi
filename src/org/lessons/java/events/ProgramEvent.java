@@ -12,7 +12,7 @@ public class ProgramEvent {
     // COSTRUTTORE
     public ProgramEvent(String title) {
         this.title = title;
-        this.events = new ArrayList<Event>();
+        this.events = new ArrayList<>();
     }
 
     // GETTERE E SETTER
@@ -22,12 +22,16 @@ public class ProgramEvent {
 
     // METODI
     // METODO PER AGGIUNGERE UN EVENTO
-    public void addEvent(Event event) {
-        events.add(event);
+    public boolean addEvent(Event event) {
+        if (!events.contains(event)) {
+            events.add(event);
+            return true;
+        }
+        return false;
     }
 
     // METODO PER RESITUIRE LISTA DI EVENTI IN UNA DATA
-    List<Event> eventList(LocalDate date) {
+    public List<Event> eventList(LocalDate date) {
         List<Event> eventOfTheDay = new ArrayList<>();
         for (Event event : events) {
             if (event.getDate().equals(date)) {
@@ -38,7 +42,7 @@ public class ProgramEvent {
     }
 
     // METODO CHE CALCOLA QUANTI EVENTI CI SONO NEL PROGRAMMA
-    public int totalEvents() {
+    public int getTotalEvents() {
         return events.size();
     }
 
